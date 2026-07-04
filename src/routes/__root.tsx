@@ -105,22 +105,38 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   },
 ],
     scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "Webistry",
-          url: "https://webistry.tn",
-          logo: "https://webistry.tn/og-image.png",
-          email: "contact@webistry.tn",
-          telephone: "+216 51 003 216",
-          address: { "@type": "PostalAddress", addressCountry: "TN" },
-          sameAs: [],
-          description: "Premium Tunisian software studio building web, mobile and enterprise software.",
-        }),
+  {
+    src: "https://www.googletagmanager.com/gtag/js?id=G-3ZPSH2571N",
+    async: true,
+  },
+  {
+    children: `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3ZPSH2571N');
+    `,
+  },
+  {
+    type: "application/ld+json",
+    children: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Webistry",
+      url: "https://webistry.tn",
+      logo: "https://webistry.tn/og-image.png",
+      email: "contact@webistry.tn",
+      telephone: "+216 51 003 216",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "TN",
       },
-    ],
+      sameAs: [],
+      description:
+        "Premium Tunisian software studio building web, mobile and enterprise software.",
+    }),
+  },
+],
   }),
   shellComponent: RootShell,
   component: RootComponent,
