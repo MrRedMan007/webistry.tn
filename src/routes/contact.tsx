@@ -53,7 +53,7 @@ function Contact() {
     const form = ev.currentTarget;
     const formData = new FormData(form);
 
-    await fetch("/", {
+    await fetch("/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -75,7 +75,7 @@ function Contact() {
         <form
   name="contact"
   method="post"
-  action="/"
+  action="/contact"
   data-netlify="true"
   netlify-honeypot="bot-field"
   onSubmit={onSubmit}
