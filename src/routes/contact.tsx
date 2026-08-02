@@ -58,56 +58,149 @@ function Contact() {
   return (
     <Section kicker="Contact" title={t.contact.title} intro={t.contact.intro}>
       <div className="grid lg:grid-cols-[1.5fr_1fr] gap-12">
-        <form onSubmit={onSubmit} noValidate className="surface-card p-8 md:p-10">
-          <div className="grid sm:grid-cols-2 gap-5">
-            <Field label={t.contact.fullName} required error={errors.fullName}>
-              <input value={form.fullName} onChange={(e) => update("fullName", e.target.value)} className={inp} autoComplete="name" required />
-            </Field>
-            <Field label={t.contact.email} required error={errors.email}>
-              <input type="email" value={form.email} onChange={(e) => update("email", e.target.value)} className={inp} autoComplete="email" required />
-            </Field>
-            <Field label={t.contact.company}>
-              <input value={form.company} onChange={(e) => update("company", e.target.value)} className={inp} autoComplete="organization" />
-            </Field>
-            <Field label={t.contact.projectType}>
-              <select value={form.projectType} onChange={(e) => update("projectType", e.target.value)} className={inp}>
-                <option value="">{t.contact.selectOption}</option>
-                {t.contact.projectTypes.map((x) => <option key={x} value={x}>{x}</option>)}
-              </select>
-            </Field>
-            <Field label={t.contact.budget}>
-              <select value={form.budget} onChange={(e) => update("budget", e.target.value)} className={inp}>
-                <option value="">{t.contact.selectOption}</option>
-                {t.contact.budgets.map((x) => <option key={x} value={x}>{x}</option>)}
-              </select>
-            </Field>
-            <Field label={t.contact.timeline}>
-              <select value={form.timeline} onChange={(e) => update("timeline", e.target.value)} className={inp}>
-                <option value="">{t.contact.selectOption}</option>
-                {t.contact.timelines.map((x) => <option key={x} value={x}>{x}</option>)}
-              </select>
-            </Field>
-          </div>
-          <Field label={t.contact.message} required error={errors.message} className="mt-5">
-            <textarea rows={5} value={form.message} onChange={(e) => update("message", e.target.value)} className={inp + " resize-y min-h-32"} required />
-          </Field>
+        <form
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  onSubmit={onSubmit}
+  noValidate
+  className="surface-card p-8 md:p-10"
+>
+  <input type="hidden" name="form-name" value="contact" />
+  <input type="hidden" name="bot-field" />
 
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <button type="submit" disabled={state === "sending"} className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-foreground text-background text-sm font-medium hover:bg-foreground/90 disabled:opacity-70 transition-colors">
-              {state === "sending" ? t.contact.sending : t.contact.submit}
-            </button>
-            <a href={WA_HREF} target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-border hover:border-gold/50 text-sm font-medium transition-colors">
-              <MessageCircle className="size-4" /> {t.contact.whatsapp}
-            </a>
-          </div>
+  <div className="grid sm:grid-cols-2 gap-5">
+    <Field label={t.contact.fullName} required error={errors.fullName}>
+      <input
+        name="fullName"
+        value={form.fullName}
+        onChange={(e) => update("fullName", e.target.value)}
+        className={inp}
+        autoComplete="name"
+        required
+      />
+    </Field>
 
-          {state === "success" && (
-            <p role="status" className="mt-5 p-4 rounded-md border border-gold/40 bg-gold/5 text-sm">{t.contact.success}</p>
-          )}
-          {state === "error" && (
-            <p role="alert" className="mt-5 p-4 rounded-md border border-destructive/40 bg-destructive/10 text-sm">{t.contact.error}</p>
-          )}
-        </form>
+    <Field label={t.contact.email} required error={errors.email}>
+      <input
+        name="email"
+        type="email"
+        value={form.email}
+        onChange={(e) => update("email", e.target.value)}
+        className={inp}
+        autoComplete="email"
+        required
+      />
+    </Field>
+
+    <Field label={t.contact.company}>
+      <input
+        name="company"
+        value={form.company}
+        onChange={(e) => update("company", e.target.value)}
+        className={inp}
+        autoComplete="organization"
+      />
+    </Field>
+
+    <Field label={t.contact.projectType}>
+      <select
+        name="projectType"
+        value={form.projectType}
+        onChange={(e) => update("projectType", e.target.value)}
+        className={inp}
+      >
+        <option value="">{t.contact.selectOption}</option>
+        {t.contact.projectTypes.map((x) => (
+          <option key={x} value={x}>
+            {x}
+          </option>
+        ))}
+      </select>
+    </Field>
+
+    <Field label={t.contact.budget}>
+      <select
+        name="budget"
+        value={form.budget}
+        onChange={(e) => update("budget", e.target.value)}
+        className={inp}
+      >
+        <option value="">{t.contact.selectOption}</option>
+        {t.contact.budgets.map((x) => (
+          <option key={x} value={x}>
+            {x}
+          </option>
+        ))}
+      </select>
+    </Field>
+
+    <Field label={t.contact.timeline}>
+      <select
+        name="timeline"
+        value={form.timeline}
+        onChange={(e) => update("timeline", e.target.value)}
+        className={inp}
+      >
+        <option value="">{t.contact.selectOption}</option>
+        {t.contact.timelines.map((x) => (
+          <option key={x} value={x}>
+            {x}
+          </option>
+        ))}
+      </select>
+    </Field>
+  </div>
+
+  <Field label={t.contact.message} required error={errors.message} className="mt-5">
+    <textarea
+      name="message"
+      rows={5}
+      value={form.message}
+      onChange={(e) => update("message", e.target.value)}
+      className={inp + " resize-y min-h-32"}
+      required
+    />
+  </Field>
+
+  <div className="mt-6 flex flex-wrap items-center gap-3">
+    <button
+      type="submit"
+      disabled={state === "sending"}
+      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-foreground text-background text-sm font-medium hover:bg-foreground/90 disabled:opacity-70 transition-colors"
+    >
+      {state === "sending" ? t.contact.sending : t.contact.submit}
+    </button>
+
+    <a
+      href={WA_HREF}
+      target="_blank"
+      rel="noopener"
+      className="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-border hover:border-gold/50 text-sm font-medium transition-colors"
+    >
+      <MessageCircle className="size-4" /> {t.contact.whatsapp}
+    </a>
+  </div>
+
+  {state === "success" && (
+    <p
+      role="status"
+      className="mt-5 p-4 rounded-md border border-gold/40 bg-gold/5 text-sm"
+    >
+      {t.contact.success}
+    </p>
+  )}
+
+  {state === "error" && (
+    <p
+      role="alert"
+      className="mt-5 p-4 rounded-md border border-destructive/40 bg-destructive/10 text-sm"
+    >
+      {t.contact.error}
+    </p>
+  )}
+</form>
 
         <aside className="space-y-4">
           <div className="surface-card p-7">
