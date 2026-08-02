@@ -42,18 +42,32 @@ function Contact() {
     return Object.keys(e).length === 0;
   }
 
-  async function onSubmit(ev: React.FormEvent) {
-    ev.preventDefault();
-    if (!validate()) return;
-    setState("sending");
-    try {
-      // Graceful fallback: SMTP not yet configured. Show success without crashing.
-      await new Promise((r) => setTimeout(r, 900));
-      setState("success");
-    } catch {
-      setState("error");
-    }
+  async function onSubmit(ev: React.FormEvent<HTMLFormElement>) {
+  ev.preventDefault();
+
+  if (!validate()) return;
+
+  setState("sending");
+
+  const form = ev.currentTarget;
+
+  try {
+    const formData = new FormData(form);
+
+    await fetch("/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams(formData as any).toString(),
+    });
+
+    setState("success");
+    form.reset();
+  } catch {
+    setState("error");
   }
+}
 
   return (
     <Section kicker="Contact" title={t.contact.title} intro={t.contact.intro}>
