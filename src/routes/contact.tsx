@@ -49,9 +49,8 @@ function Contact() {
 
   setState("sending");
 
-  const form = ev.currentTarget;
-
   try {
+    const form = ev.currentTarget;
     const formData = new FormData(form);
 
     await fetch("/", {
@@ -64,7 +63,8 @@ function Contact() {
 
     setState("success");
     form.reset();
-  } catch {
+  } catch (err) {
+    console.error(err);
     setState("error");
   }
 }
@@ -74,7 +74,8 @@ function Contact() {
       <div className="grid lg:grid-cols-[1.5fr_1fr] gap-12">
         <form
   name="contact"
-  method="POST"
+  method="post"
+  action="/"
   data-netlify="true"
   netlify-honeypot="bot-field"
   onSubmit={onSubmit}
