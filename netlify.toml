@@ -4,8 +4,3 @@
   status = 200
   force = true
   conditions = {Method = ["POST"]}
-[[redirects]]
-  from = "/redirect-test"
-  to = "/__forms.html"
-  status = 200
-  force = true
