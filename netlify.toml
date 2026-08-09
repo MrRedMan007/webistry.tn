@@ -2,7 +2,7 @@
   from = "/contact"
   to = "/__forms.html"
   status = 200
-  force = false
+  force = true
   conditions = {Method = ["POST"]}
 [[redirects]]
   from = "/redirect-test"
